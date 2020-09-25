@@ -2,21 +2,35 @@ import * as React from 'react';
 import { View, Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import AuthScreen from './screns/AuthScreen';
-import Login from './screns/Login';
-import Welcome from './screns/Welcome';
+import Login1 from './screns/Login1';
+import Welcome1 from './screns/Welcome1';
+import { connect } from 'react-redux';
+
 const Stack = createStackNavigator();
 
-function Navigation() {
+function Navigation(props) {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {/* <Stack.Screen name="AuthScreen" component={AuthScreen} /> */}
-        <Stack.Screen name="Login" component={Login} />
-         <Stack.Screen name="Welcome" component={Welcome} />
+        { props.isLoggedIn ?
+            <Stack.Screen name="Welcome" component={Welcome1} />
+            :
+            <Stack.Screen name="Login" component={Login1} />
+        }
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-export default Navigation;
+const mapStateToProps = (state) => {
+  console.log("state",state.auth.isLoggedIn)
+  return {
+      isLoggedIn: state.auth.isLoggedIn
+  };
+}
+
+export default connect(mapStateToProps)(Navigation);
+
+
+
+
