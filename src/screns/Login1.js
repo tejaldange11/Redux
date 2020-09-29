@@ -7,11 +7,25 @@ class Login1 extends Component {
   constructor(){
       super();
       this.state = {
-        
+        username:'',
+        password:''
     };
   }
   userLogin (e) {
-    this.props.onLogin(this.state.username, this.state.password);
+    if(this.state.username == "" && this.state.password == "")
+    {
+      alert("Please enter username and password");
+
+    }
+     else if(this.state.username ==='tejal' && this.state.password ==='admin')
+      {
+        this.props.onLogin(this.state.username, this.state.password);
+
+      }
+      else{
+          alert("Username and Password did not match")
+      }
+   
  }
   render() {
     return (
@@ -35,7 +49,7 @@ class Login1 extends Component {
                     style={{borderWidth:0.3,marginTop:20,borderRadius:22,padding:10,width:'90%'}}
                     />
         <TouchableOpacity  
-           onPress={() => this.props.onLogin(this.state.username, this.state.password)} 
+           onPress={(e) => this.userLogin(e) } 
            style={{borderWidth:0.3,marginTop:20,borderRadius:22,padding:10,width:'90%',
            backgroundColor:'blue'}} >
            
